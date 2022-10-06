@@ -1,24 +1,40 @@
-
 import java.awt.ComponentOrientation;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 
 import java.awt.Image;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 /**
- *
- * @author aluno
+ * @author Douglas, Eduardo, Gabriel e Rafael
  */
 public class telaPrincipal extends javax.swing.JFrame {
 
     /**
      * Creates new form telaPrincipal
      */
-    Pokemon pokemon = new Pokemon();
+    public Pokemon listPokemon[] = new Pokemon[]{
+        new Pokemon("Cyndaquil", "fogo", "/resources/pokemon/cyndaquil.png"),
+        new Pokemon("Charmander", "fogo", "/resources/pokemon/charmander.png"),
+        new Pokemon("Growlithe", "fogo", "/resources/pokemon/growlithe.png"),
+        new Pokemon("Flareon", "fogo", "/resources/pokemon/flareon.png"),
+        new Pokemon("Squirtle", "agua", "/resources/pokemon/squirtle.png"),
+        new Pokemon("Staryu", "agua", "/resources/pokemon/staryu.png"),
+        new Pokemon("Chikorita", "planta", "/resources/pokemon/chikorita.png"),
+        new Pokemon("Turtwig", "planta", "/resources/pokemon/turtwig.png"),
+        new Pokemon("Graveler", "pedra", "/resources/pokemon/graveler.png"),
+        new Pokemon("Sudowoodo", "pedra", "/resources/pokemon/sudowoodo.png")
+    };
+    
+    public Pokemon meuPokemon = this.listPokemon[0];
+    public Pokemon outroPokemon = this.listPokemon[0];
+    
+    public String[] getNomesPokemonCombo(){
+        String listaNomes[] = new String[listPokemon.length];
+        for(int i = 0; i < listPokemon.length; i++){
+            listaNomes[i] = listPokemon[i].getNome();
+        }
+        return listaNomes;
+    }
 
     public telaPrincipal() {
         initComponents();
@@ -35,7 +51,7 @@ public class telaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        lblMeuPokemon = new javax.swing.JLabel();
+        lblNivel = new javax.swing.JLabel();
         cbxMeuPokemon = new javax.swing.JComboBox<>();
         lblOutroPokemon = new javax.swing.JLabel();
         cbxOutroPokemon = new javax.swing.JComboBox<>();
@@ -52,44 +68,56 @@ public class telaPrincipal extends javax.swing.JFrame {
         lblVidaMeu = new javax.swing.JLabel();
         prBrVidaOutro = new javax.swing.JProgressBar();
         prBrVidaMeu = new javax.swing.JProgressBar();
+        lblMeuPokemon1 = new javax.swing.JLabel();
+        inputNivelMeu = new javax.swing.JTextField();
+        inputNivelOutro = new javax.swing.JTextField();
+        lblNivel1 = new javax.swing.JLabel();
+        calcularAtributosOutroPoke = new javax.swing.JButton();
+        calcularAtributosMeuPoke1 = new javax.swing.JButton();
         lbBackg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Duelo Pokémon");
         setName("Duelo Pokémon"); // NOI18N
-        setSize(new java.awt.Dimension(590, 340));
+        setSize(new java.awt.Dimension(590, 400));
 
         jPanel1.setLayout(null);
 
-        lblMeuPokemon.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblMeuPokemon.setForeground(new java.awt.Color(204, 255, 204));
-        lblMeuPokemon.setText("Meu Pokémon:");
-        jPanel1.add(lblMeuPokemon);
-        lblMeuPokemon.setBounds(90, 0, 93, 20);
+        lblNivel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblNivel.setForeground(new java.awt.Color(204, 255, 204));
+        lblNivel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNivel.setText("Nivel:");
+        jPanel1.add(lblNivel);
+        lblNivel.setBounds(30, 70, 120, 30);
 
-        cbxMeuPokemon.setModel(new javax.swing.DefaultComboBoxModel<>(pokemon.listPokemon));
+        cbxMeuPokemon.setModel(new javax.swing.DefaultComboBoxModel<>(this.getNomesPokemonCombo()));
+        cbxMeuPokemon.setSelectedItem(this.listPokemon[0].getNome()
+        );
+        cbxMeuPokemon.setToolTipText("");
         cbxMeuPokemon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxMeuPokemonActionPerformed(evt);
             }
         });
         jPanel1.add(cbxMeuPokemon);
-        cbxMeuPokemon.setBounds(80, 20, 110, 22);
+        cbxMeuPokemon.setBounds(30, 50, 120, 22);
 
         lblOutroPokemon.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblOutroPokemon.setForeground(new java.awt.Color(204, 255, 204));
+        lblOutroPokemon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblOutroPokemon.setText("Pokémon inimigo:");
         jPanel1.add(lblOutroPokemon);
-        lblOutroPokemon.setBounds(390, 0, 110, 20);
+        lblOutroPokemon.setBounds(440, 20, 120, 20);
 
-        cbxOutroPokemon.setModel(new javax.swing.DefaultComboBoxModel<>(pokemon.listPokemon));
+        cbxOutroPokemon.setModel(new javax.swing.DefaultComboBoxModel<>(this.getNomesPokemonCombo()));
+        cbxOutroPokemon.setSelectedItem(listPokemon[0].getNome());
         cbxOutroPokemon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxOutroPokemonActionPerformed(evt);
             }
         });
         jPanel1.add(cbxOutroPokemon);
-        cbxOutroPokemon.setBounds(390, 20, 110, 22);
+        cbxOutroPokemon.setBounds(440, 50, 120, 22);
 
         btnBatalhar.setText("Batalhar!");
         btnBatalhar.addActionListener(new java.awt.event.ActionListener() {
@@ -98,350 +126,179 @@ public class telaPrincipal extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnBatalhar);
-        btnBatalhar.setBounds(250, 150, 100, 23);
+        btnBatalhar.setBounds(250, 170, 100, 22);
 
         lblFimBatalha.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblFimBatalha.setForeground(new java.awt.Color(51, 255, 0));
         lblFimBatalha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jPanel1.add(lblFimBatalha);
-        lblFimBatalha.setBounds(200, 30, 190, 40);
-        lblFimBatalha.getAccessibleContext().setAccessibleName("");
+        lblFimBatalha.setBounds(200, 40, 200, 40);
 
         lblFimGanhador.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblFimGanhador.setForeground(new java.awt.Color(0, 255, 0));
         lblFimGanhador.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jPanel1.add(lblFimGanhador);
-        lblFimGanhador.setBounds(195, 70, 190, 40);
+        lblFimGanhador.setBounds(200, 100, 200, 40);
         jPanel1.add(lblImgOutro);
-        lblImgOutro.setBounds(340, 150, 110, 100);
-        ImageIcon imagePoke2 = new ImageIcon(getClass().getResource("/resources/pokemon/cyndaquil.png"));
-        lblImgOutro.setIcon(new ImageIcon(imagePoke2.getImage().getScaledInstance(lblImgOutro.getWidth(),lblImgOutro.getHeight(), Image.SCALE_DEFAULT)));
+        lblImgOutro.setBounds(440, 160, 120, 110);
+        ImageIcon imagemOutroPokemon = outroPokemon.getImagem();  
+        lblImgOutro.setIcon(new ImageIcon(imagemOutroPokemon.getImage().getScaledInstance(lblImgOutro.getWidth(),lblImgOutro.getHeight(), Image.SCALE_DEFAULT)));
         jPanel1.add(lblImgMeu);
-        lblImgMeu.setBounds(150, 150, 110, 100);
-        ImageIcon imagePoke = new ImageIcon(getClass().getResource("/resources/pokemon/cyndaquil.png"));
-        lblImgMeu.setIcon(new ImageIcon(imagePoke.getImage().getScaledInstance(lblImgMeu.getWidth(),lblImgMeu.getHeight(), Image.SCALE_DEFAULT)));
+        lblImgMeu.setBounds(30, 160, 120, 110);
+        ImageIcon imagemMeuPokemon = meuPokemon.getImagem();
+        lblImgMeu.setIcon(new ImageIcon(imagemMeuPokemon.getImage().getScaledInstance(lblImgMeu.getWidth(),lblImgMeu.getHeight(), Image.SCALE_DEFAULT)));
 
         lblDefesaOutro.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblDefesaOutro.setForeground(new java.awt.Color(102, 255, 102));
+        lblDefesaOutro.setText("Defesa:");
         jPanel1.add(lblDefesaOutro);
-        lblDefesaOutro.setBounds(500, 300, 70, 20);
+        lblDefesaOutro.setBounds(430, 360, 160, 20);
 
         lblAtaqueOutro.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblAtaqueOutro.setForeground(new java.awt.Color(102, 255, 102));
+        lblAtaqueOutro.setText("Ataque");
         jPanel1.add(lblAtaqueOutro);
-        lblAtaqueOutro.setBounds(400, 300, 70, 20);
+        lblAtaqueOutro.setBounds(430, 340, 160, 20);
 
         lblVidaOutro.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblVidaOutro.setForeground(new java.awt.Color(102, 255, 102));
+        lblVidaOutro.setText("Vida");
         jPanel1.add(lblVidaOutro);
-        lblVidaOutro.setBounds(500, 260, 70, 20);
+        lblVidaOutro.setBounds(430, 320, 160, 20);
 
         lblAtaqueMeu.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblAtaqueMeu.setForeground(new java.awt.Color(102, 255, 102));
+        lblAtaqueMeu.setText("Ataque: ");
         jPanel1.add(lblAtaqueMeu);
-        lblAtaqueMeu.setBounds(130, 300, 70, 20);
+        lblAtaqueMeu.setBounds(30, 340, 260, 20);
 
         lblDefesaMeu.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblDefesaMeu.setForeground(new java.awt.Color(102, 255, 102));
+        lblDefesaMeu.setText("Defesa:");
         jPanel1.add(lblDefesaMeu);
-        lblDefesaMeu.setBounds(20, 300, 70, 20);
+        lblDefesaMeu.setBounds(30, 360, 260, 20);
 
         lblVidaMeu.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblVidaMeu.setForeground(new java.awt.Color(102, 255, 102));
+        lblVidaMeu.setText("Vida:");
         jPanel1.add(lblVidaMeu);
-        lblVidaMeu.setBounds(20, 260, 70, 20);
+        lblVidaMeu.setBounds(30, 320, 260, 20);
         jPanel1.add(prBrVidaOutro);
-        prBrVidaOutro.setBounds(340, 260, 120, 20);
+        prBrVidaOutro.setBounds(440, 290, 120, 20);
         jPanel1.add(prBrVidaMeu);
-        prBrVidaMeu.setBounds(140, 260, 120, 20);
+        prBrVidaMeu.setBounds(30, 290, 120, 20);
+
+        lblMeuPokemon1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblMeuPokemon1.setForeground(new java.awt.Color(204, 255, 204));
+        lblMeuPokemon1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblMeuPokemon1.setText("Meu Pokémon:");
+        jPanel1.add(lblMeuPokemon1);
+        lblMeuPokemon1.setBounds(30, 20, 120, 20);
+
+        inputNivelMeu.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                inputNivelMeuFocusLost(evt);
+            }
+        });
+        inputNivelMeu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputNivelMeuActionPerformed(evt);
+            }
+        });
+        inputNivelMeu.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                inputNivelMeuKeyTyped(evt);
+            }
+        });
+        jPanel1.add(inputNivelMeu);
+        inputNivelMeu.setBounds(30, 100, 120, 22);
+
+        inputNivelOutro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputNivelOutroActionPerformed(evt);
+            }
+        });
+        inputNivelOutro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                inputNivelOutroKeyTyped(evt);
+            }
+        });
+        jPanel1.add(inputNivelOutro);
+        inputNivelOutro.setBounds(440, 100, 120, 22);
+
+        lblNivel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblNivel1.setForeground(new java.awt.Color(204, 255, 204));
+        lblNivel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNivel1.setText("Nivel:");
+        jPanel1.add(lblNivel1);
+        lblNivel1.setBounds(440, 70, 120, 30);
+
+        calcularAtributosOutroPoke.setText("Calcular atributos");
+        calcularAtributosOutroPoke.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                calcularAtributosOutroPokeActionPerformed(evt);
+            }
+        });
+        jPanel1.add(calcularAtributosOutroPoke);
+        calcularAtributosOutroPoke.setBounds(430, 130, 140, 22);
+
+        calcularAtributosMeuPoke1.setText("Calcular atributos");
+        calcularAtributosMeuPoke1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                calcularAtributosMeuPoke1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(calcularAtributosMeuPoke1);
+        calcularAtributosMeuPoke1.setBounds(20, 130, 140, 22);
         jPanel1.add(lbBackg);
-        lbBackg.setBounds(0, 0, 590, 340);
+        lbBackg.setBounds(0, 0, 590, 400);
         ImageIcon image = new ImageIcon(getClass().getResource("/resources/estadio.png"));
         lbBackg.setIcon(new ImageIcon(image.getImage().getScaledInstance(lbBackg.getWidth(),lbBackg.getHeight(), Image.SCALE_DEFAULT)));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
-        setSize(new java.awt.Dimension(605, 346));
+        setSize(new java.awt.Dimension(605, 427));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbxMeuPokemonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxMeuPokemonActionPerformed
-        // TODO add your handling code here:
-        switch (cbxMeuPokemon.getSelectedIndex()) {
-            case 0: {
-                ImageIcon image = new ImageIcon(getClass().getResource("/resources/pokemon/cyndaquil.png"));
-                lblImgMeu.setIcon(new ImageIcon(image.getImage().getScaledInstance(lblImgMeu.getWidth(), lblImgMeu.getHeight(), Image.SCALE_DEFAULT)));
-                int ataque = pokemon.getAtaque();
-                int defesa = pokemon.getDefesa();
-                int vida = pokemon.getVida();
-                lblAtaqueMeu.setText("Ataque: " + ataque);
-                lblDefesaMeu.setText("Defesa: " + defesa);
-                lblVidaMeu.setText("Vida: " + vida);
-                break;
-            }
-            case 1: {
-                ImageIcon image = new ImageIcon(getClass().getResource("/resources/pokemon/charmander.png"));
-                lblImgMeu.setIcon(new ImageIcon(image.getImage().getScaledInstance(lblImgMeu.getWidth(), lblImgMeu.getHeight(), Image.SCALE_DEFAULT)));
-                int ataque = pokemon.getAtaque();
-                int defesa = pokemon.getDefesa();
-                int vida = pokemon.getVida();
-                lblAtaqueMeu.setText("Ataque: " + ataque);
-                lblDefesaMeu.setText("Defesa: " + defesa);
-                lblVidaMeu.setText("Vida: " + vida);
-                break;
-            }
-            case 2: {
-                ImageIcon image = new ImageIcon(getClass().getResource("/resources/pokemon/growlithe.png"));
-                lblImgMeu.setIcon(new ImageIcon(image.getImage().getScaledInstance(lblImgMeu.getWidth(), lblImgMeu.getHeight(), Image.SCALE_DEFAULT)));
-                int ataque = pokemon.getAtaque();
-                int defesa = pokemon.getDefesa();
-                int vida = pokemon.getVida();
-                lblAtaqueMeu.setText("Ataque: " + ataque);
-                lblDefesaMeu.setText("Defesa: " + defesa);
-                lblVidaMeu.setText("Vida: " + vida);
-                break;
-            }
-            case 3: {
-                ImageIcon image = new ImageIcon(getClass().getResource("/resources/pokemon/flareon.png"));
-                lblImgMeu.setIcon(new ImageIcon(image.getImage().getScaledInstance(lblImgMeu.getWidth(), lblImgMeu.getHeight(), Image.SCALE_DEFAULT)));
-                int ataque = pokemon.getAtaque();
-                int defesa = pokemon.getDefesa();
-                int vida = pokemon.getVida();
-                lblAtaqueMeu.setText("Ataque: " + ataque);
-                lblDefesaMeu.setText("Defesa: " + defesa);
-                lblVidaMeu.setText("Vida: " + vida);
-                break;
-            }
-            case 4: {
-                ImageIcon image = new ImageIcon(getClass().getResource("/resources/pokemon/squirtle.png"));
-                lblImgMeu.setIcon(new ImageIcon(image.getImage().getScaledInstance(lblImgMeu.getWidth(), lblImgMeu.getHeight(), Image.SCALE_DEFAULT)));
-                int ataque = pokemon.getAtaque();
-                int defesa = pokemon.getDefesa();
-                int vida = pokemon.getVida();
-                lblAtaqueMeu.setText("Ataque: " + ataque);
-                lblDefesaMeu.setText("Defesa: " + defesa);
-                lblVidaMeu.setText("Vida: " + vida);
-                break;
-            }
-            case 5: {
-                ImageIcon image = new ImageIcon(getClass().getResource("/resources/pokemon/staryu.png"));
-                lblImgMeu.setIcon(new ImageIcon(image.getImage().getScaledInstance(lblImgMeu.getWidth(), lblImgMeu.getHeight(), Image.SCALE_DEFAULT)));
-                int ataque = pokemon.getAtaque();
-                int defesa = pokemon.getDefesa();
-                int vida = pokemon.getVida();
-                lblAtaqueMeu.setText("Ataque: " + ataque);
-                lblDefesaMeu.setText("Defesa: " + defesa);
-                lblVidaMeu.setText("Vida: " + vida);
-                break;
-            }
-            case 6: {
-                ImageIcon image = new ImageIcon(getClass().getResource("/resources/pokemon/chikorita.png"));
-                lblImgMeu.setIcon(new ImageIcon(image.getImage().getScaledInstance(lblImgMeu.getWidth(), lblImgMeu.getHeight(), Image.SCALE_DEFAULT)));
-                int ataque = pokemon.getAtaque();
-                int defesa = pokemon.getDefesa();
-                int vida = pokemon.getVida();
-                lblAtaqueMeu.setText("Ataque: " + ataque);
-                lblDefesaMeu.setText("Defesa: " + defesa);
-                lblVidaMeu.setText("Vida: " + vida);
-                break;
-            }
-            case 7: {
-                ImageIcon image = new ImageIcon(getClass().getResource("/resources/pokemon/turtwig.png"));
-                lblImgMeu.setIcon(new ImageIcon(image.getImage().getScaledInstance(lblImgMeu.getWidth(), lblImgMeu.getHeight(), Image.SCALE_DEFAULT)));
-                int ataque = pokemon.getAtaque();
-                int defesa = pokemon.getDefesa();
-                int vida = pokemon.getVida();
-                lblAtaqueMeu.setText("Ataque: " + ataque);
-                lblDefesaMeu.setText("Defesa: " + defesa);
-                lblVidaMeu.setText("Vida: " + vida);
-                break;
-            }
-            case 8: {
-                ImageIcon image = new ImageIcon(getClass().getResource("/resources/pokemon/graveler.png"));
-                lblImgMeu.setIcon(new ImageIcon(image.getImage().getScaledInstance(lblImgMeu.getWidth(), lblImgMeu.getHeight(), Image.SCALE_DEFAULT)));
-                int ataque = pokemon.getAtaque();
-                int defesa = pokemon.getDefesa();
-                int vida = pokemon.getVida();
-                lblAtaqueMeu.setText("Ataque: " + ataque);
-                lblDefesaMeu.setText("Defesa: " + defesa);
-                lblVidaMeu.setText("Vida: " + vida);
-                break;
-            }
-            case 9: {
-                ImageIcon image = new ImageIcon(getClass().getResource("/resources/pokemon/sudowoodo.png"));
-                lblImgMeu.setIcon(new ImageIcon(image.getImage().getScaledInstance(lblImgMeu.getWidth(), lblImgMeu.getHeight(), Image.SCALE_DEFAULT)));
-                int ataque = pokemon.getAtaque();
-                int defesa = pokemon.getDefesa();
-                int vida = pokemon.getVida();
-                lblAtaqueMeu.setText("Ataque: " + ataque);
-                lblDefesaMeu.setText("Defesa: " + defesa);
-                lblVidaMeu.setText("Vida: " + vida);
-                break;
-            }
-            default: {
-                ImageIcon image = new ImageIcon(getClass().getResource("/resources/pokemon/squirtle.png"));
-                lblImgMeu.setIcon(new ImageIcon(image.getImage().getScaledInstance(lblImgMeu.getWidth(), lblImgMeu.getHeight(), Image.SCALE_DEFAULT)));
-                int ataque = pokemon.getAtaque();
-                int defesa = pokemon.getDefesa();
-                int vida = pokemon.getVida();
-                lblAtaqueMeu.setText("Ataque: " + ataque);
-                lblDefesaMeu.setText("Defesa: " + defesa);
-                lblVidaMeu.setText("Vida: " + vida);
-                break;
-            }
-        }
+        this.meuPokemon = this.listPokemon[cbxMeuPokemon.getSelectedIndex()];
+        lblImgMeu.setIcon(new ImageIcon(this.meuPokemon.getImagem().getImage().getScaledInstance(lblImgMeu.getWidth(), lblImgMeu.getHeight(), Image.SCALE_DEFAULT)));
     }//GEN-LAST:event_cbxMeuPokemonActionPerformed
 
     private void cbxOutroPokemonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxOutroPokemonActionPerformed
-        switch (cbxOutroPokemon.getSelectedIndex()) {
-            case 0: {
-                ImageIcon image = new ImageIcon(getClass().getResource("/resources/pokemon/cyndaquil.png"));
-                lblImgOutro.setIcon(new ImageIcon(image.getImage().getScaledInstance(lblImgOutro.getWidth(), lblImgOutro.getHeight(), Image.SCALE_DEFAULT)));
-                int ataque = pokemon.getAtaque();
-                int defesa = pokemon.getDefesa();
-                int vida = pokemon.getVida();
-                lblAtaqueOutro.setText("Ataque: " + ataque);
-                lblDefesaOutro.setText("Defesa: " + defesa);
-                lblVidaOutro.setText("Vida: " + vida);
-                break;
-            }
-            case 1: {
-                ImageIcon image = new ImageIcon(getClass().getResource("/resources/pokemon/charmander.png"));
-                lblImgOutro.setIcon(new ImageIcon(image.getImage().getScaledInstance(lblImgOutro.getWidth(), lblImgOutro.getHeight(), Image.SCALE_DEFAULT)));
-                int ataque = pokemon.getAtaque();
-                int defesa = pokemon.getDefesa();
-                int vida = pokemon.getVida();
-                lblAtaqueOutro.setText("Ataque: " + ataque);
-                lblDefesaOutro.setText("Defesa: " + defesa);
-                lblVidaOutro.setText("Vida: " + vida);
-                break;
-            }
-            case 2: {
-                ImageIcon image = new ImageIcon(getClass().getResource("/resources/pokemon/growlithe.png"));
-                lblImgOutro.setIcon(new ImageIcon(image.getImage().getScaledInstance(lblImgOutro.getWidth(), lblImgOutro.getHeight(), Image.SCALE_DEFAULT)));
-                int ataque = pokemon.getAtaque();
-                int defesa = pokemon.getDefesa();
-                int vida = pokemon.getVida();
-                lblAtaqueOutro.setText("Ataque: " + ataque);
-                lblDefesaOutro.setText("Defesa: " + defesa);
-                lblVidaOutro.setText("Vida: " + vida);
-                break;
-            }
-            case 3: {
-                ImageIcon image = new ImageIcon(getClass().getResource("/resources/pokemon/flareon.png"));
-                lblImgOutro.setIcon(new ImageIcon(image.getImage().getScaledInstance(lblImgOutro.getWidth(), lblImgOutro.getHeight(), Image.SCALE_DEFAULT)));
-                int ataque = pokemon.getAtaque();
-                int defesa = pokemon.getDefesa();
-                int vida = pokemon.getVida();
-                lblAtaqueOutro.setText("Ataque: " + ataque);
-                lblDefesaOutro.setText("Defesa: " + defesa);
-                lblVidaOutro.setText("Vida: " + vida);
-                break;
-            }
-            case 4: {
-                ImageIcon image = new ImageIcon(getClass().getResource("/resources/pokemon/squirtle.png"));
-                lblImgOutro.setIcon(new ImageIcon(image.getImage().getScaledInstance(lblImgOutro.getWidth(), lblImgOutro.getHeight(), Image.SCALE_DEFAULT)));
-                int ataque = pokemon.getAtaque();
-                int defesa = pokemon.getDefesa();
-                int vida = pokemon.getVida();
-                lblAtaqueOutro.setText("Ataque: " + ataque);
-                lblDefesaOutro.setText("Defesa: " + defesa);
-                lblVidaOutro.setText("Vida: " + vida);
-                break;
-            }
-            case 5: {
-                ImageIcon image = new ImageIcon(getClass().getResource("/resources/pokemon/staryu.png"));
-                lblImgOutro.setIcon(new ImageIcon(image.getImage().getScaledInstance(lblImgOutro.getWidth(), lblImgOutro.getHeight(), Image.SCALE_DEFAULT)));
-                int ataque = pokemon.getAtaque();
-                int defesa = pokemon.getDefesa();
-                int vida = pokemon.getVida();
-                lblAtaqueOutro.setText("Ataque: " + ataque);
-                lblDefesaOutro.setText("Defesa: " + defesa);
-                lblVidaOutro.setText("Vida: " + vida);
-                break;
-            }
-            case 6: {
-                ImageIcon image = new ImageIcon(getClass().getResource("/resources/pokemon/chikorita.png"));
-                lblImgOutro.setIcon(new ImageIcon(image.getImage().getScaledInstance(lblImgOutro.getWidth(), lblImgOutro.getHeight(), Image.SCALE_DEFAULT)));
-                int ataque = pokemon.getAtaque();
-                int defesa = pokemon.getDefesa();
-                int vida = pokemon.getVida();
-                lblAtaqueOutro.setText("Ataque: " + ataque);
-                lblDefesaOutro.setText("Defesa: " + defesa);
-                lblVidaOutro.setText("Vida: " + vida);
-                break;
-            }
-            case 7: {
-                ImageIcon image = new ImageIcon(getClass().getResource("/resources/pokemon/turtwig.png"));
-                lblImgOutro.setIcon(new ImageIcon(image.getImage().getScaledInstance(lblImgOutro.getWidth(), lblImgOutro.getHeight(), Image.SCALE_DEFAULT)));
-                int ataque = pokemon.getAtaque();
-                int defesa = pokemon.getDefesa();
-                int vida = pokemon.getVida();
-                lblAtaqueOutro.setText("Ataque: " + ataque);
-                lblDefesaOutro.setText("Defesa: " + defesa);
-                lblVidaOutro.setText("Vida: " + vida);
-                break;
-            }
-            case 8: {
-                ImageIcon image = new ImageIcon(getClass().getResource("/resources/pokemon/graveler.png"));
-                lblImgOutro.setIcon(new ImageIcon(image.getImage().getScaledInstance(lblImgOutro.getWidth(), lblImgOutro.getHeight(), Image.SCALE_DEFAULT)));
-                int ataque = pokemon.getAtaque();
-                int defesa = pokemon.getDefesa();
-                int vida = pokemon.getVida();
-                lblAtaqueOutro.setText("Ataque: " + ataque);
-                lblDefesaOutro.setText("Defesa: " + defesa);
-                lblVidaOutro.setText("Vida: " + vida);
-                break;
-            }
-            case 9: {
-                ImageIcon image = new ImageIcon(getClass().getResource("/resources/pokemon/sudowoodo.png"));
-                lblImgOutro.setIcon(new ImageIcon(image.getImage().getScaledInstance(lblImgOutro.getWidth(), lblImgOutro.getHeight(), Image.SCALE_DEFAULT)));
-                int ataque = pokemon.getAtaque();
-                int defesa = pokemon.getDefesa();
-                int vida = pokemon.getVida();
-                lblAtaqueOutro.setText("Ataque: " + ataque);
-                lblDefesaOutro.setText("Defesa: " + defesa);
-                lblVidaOutro.setText("Vida: " + vida);
-                break;
-            }
-            default: {
-                ImageIcon image = new ImageIcon(getClass().getResource("/resources/pokemon/squirtle.png"));
-                lblImgOutro.setIcon(new ImageIcon(image.getImage().getScaledInstance(lblImgOutro.getWidth(), lblImgOutro.getHeight(), Image.SCALE_DEFAULT)));
-                int ataque = pokemon.getAtaque();
-                int defesa = pokemon.getDefesa();
-                int vida = pokemon.getVida();
-                lblAtaqueOutro.setText("Ataque: " + ataque);
-                lblDefesaOutro.setText("Defesa: " + defesa);
-                lblVidaOutro.setText("Vida: " + vida);
-                break;
-            }
-        }
+        this.outroPokemon = this.listPokemon[cbxOutroPokemon.getSelectedIndex()];
+        lblImgOutro.setIcon(new ImageIcon(this.outroPokemon.getImagem().getImage().getScaledInstance(lblImgOutro.getWidth(), lblImgOutro.getHeight(), Image.SCALE_DEFAULT)));
     }//GEN-LAST:event_cbxOutroPokemonActionPerformed
 
     private void btnBatalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalharActionPerformed
-        int meuPokemon = cbxMeuPokemon.getSelectedIndex();
-        int outroPokemon = cbxOutroPokemon.getSelectedIndex();
-        Batalha batalha = new Batalha();
-        /*batalha.setMeuPokemonBatalha(meuPokemon);
-        batalha.setOutroPokemonBatalha(outroPokemon);*/
+        String nivelMeuPokemon = inputNivelMeu.getText();
+        String nivelOutroPokemon = inputNivelOutro.getText();
+        if ("".equals(nivelMeuPokemon)|| "".equals(nivelOutroPokemon)){ return; }
         new Thread() {
-            Batalha batalha = new Batalha();
-            Pokemon pokemon = new Pokemon();
+            Pokemon meuPokemon = new Pokemon(
+                    listPokemon[cbxMeuPokemon.getSelectedIndex()].getNome(),
+                    listPokemon[cbxMeuPokemon.getSelectedIndex()].getTipo(),
+                    Integer.parseInt(nivelMeuPokemon)
+            );
+            Pokemon outroPokemon = new Pokemon(
+                    listPokemon[cbxOutroPokemon.getSelectedIndex()].getNome(),
+                    listPokemon[cbxOutroPokemon.getSelectedIndex()].getTipo(),
+                    Integer.parseInt(nivelOutroPokemon)
+            );
+            Batalha batalha = new Batalha(meuPokemon, outroPokemon);
 
             public void run() {
+                lblAtaqueMeu.setText("Ataque: " + this.meuPokemon.getAtaque());
+                lblDefesaMeu.setText("Defesa: " + this.meuPokemon.getDefesa());
+                lblVidaMeu.setText("Vida: " + this.meuPokemon.getVida());
+                lblAtaqueOutro.setText("Ataque: " + this.outroPokemon.getAtaque());
+                lblDefesaOutro.setText("Defesa: " + this.outroPokemon.getDefesa());
+                lblVidaOutro.setText("Vida: " + this.outroPokemon.getVida());
                 try {
                     prBrVidaOutro.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
                     switch (batalha.getCampeao()) {
-                        case 0 -> {
+                        case 0: {
                             Thread.sleep(150);
                             prBrVidaMeu.setValue(100);
                             prBrVidaOutro.setValue(100);
@@ -478,10 +335,11 @@ public class telaPrincipal extends javax.swing.JFrame {
                             Thread.sleep(150);
                             prBrVidaMeu.setValue(0);
                             prBrVidaOutro.setValue(0);
-                            lblFimBatalha.setText("Empate");
-                            lblFimGanhador.setText(null);
+                            lblFimBatalha.setText("Empate!");
+                            lblFimGanhador.setText("");
+                            break;
                         }
-                        case 1 -> {
+                        case 1: {
                             Thread.sleep(150);
                             prBrVidaMeu.setValue(100);
                             prBrVidaOutro.setValue(100);
@@ -518,10 +376,11 @@ public class telaPrincipal extends javax.swing.JFrame {
                             Thread.sleep(150);
                             prBrVidaMeu.setValue(25);
                             prBrVidaOutro.setValue(0);
-                            lblFimBatalha.setText("Ganhador");
-                            lblFimGanhador.setText(pokemon.listPokemon[cbxMeuPokemon.getSelectedIndex()]);
+                            lblFimBatalha.setText("Ganhador:");
+                            lblFimGanhador.setText(meuPokemon.getNome());
+                            break;
                         }
-                        default -> {
+                        default: {
                             Thread.sleep(150);
                             prBrVidaMeu.setValue(100);
                             prBrVidaOutro.setValue(100);
@@ -558,16 +417,59 @@ public class telaPrincipal extends javax.swing.JFrame {
                             Thread.sleep(150);
                             prBrVidaMeu.setValue(0);
                             prBrVidaOutro.setValue(30);
-                            lblFimBatalha.setText("Ganhador");
-                            lblFimGanhador.setText(pokemon.listPokemon[cbxOutroPokemon.getSelectedIndex()]);
+                            lblFimBatalha.setText("Ganhador:");
+                            lblFimGanhador.setText(outroPokemon.getNome());
                         }
                     }
 
-                } catch (InterruptedException ex) {
-                }
+                } catch (InterruptedException ex) { }
             }
         }.start();
     }//GEN-LAST:event_btnBatalharActionPerformed
+
+    private void inputNivelOutroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputNivelOutroActionPerformed
+        
+    }//GEN-LAST:event_inputNivelOutroActionPerformed
+
+    private void inputNivelMeuFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_inputNivelMeuFocusLost
+
+    }//GEN-LAST:event_inputNivelMeuFocusLost
+
+    private void inputNivelMeuKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputNivelMeuKeyTyped
+      
+    }//GEN-LAST:event_inputNivelMeuKeyTyped
+
+    private void inputNivelOutroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputNivelOutroKeyTyped
+
+    }//GEN-LAST:event_inputNivelOutroKeyTyped
+
+    private void inputNivelMeuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputNivelMeuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputNivelMeuActionPerformed
+
+    private void calcularAtributosOutroPokeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcularAtributosOutroPokeActionPerformed
+        if(!"".equals(this.inputNivelOutro.getText())){
+            this.outroPokemon = new Pokemon(this.outroPokemon.getNome(), this.outroPokemon.getTipo(), Integer.parseInt(this.inputNivelOutro.getText()));
+            int ataque = this.outroPokemon.getAtaque();
+            int defesa = this.outroPokemon.getDefesa();
+            int vida = this.outroPokemon.getVida();
+            lblAtaqueOutro.setText("Ataque: " + ataque);
+            lblDefesaOutro.setText("Defesa: " + defesa);
+            lblVidaOutro.setText("Vida: " + vida);
+        }
+    }//GEN-LAST:event_calcularAtributosOutroPokeActionPerformed
+
+    private void calcularAtributosMeuPoke1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcularAtributosMeuPoke1ActionPerformed
+        if(!"".equals(this.inputNivelMeu.getText())){
+            this.meuPokemon = new Pokemon(this.meuPokemon.getNome(), this.meuPokemon.getTipo(), Integer.parseInt(this.inputNivelMeu.getText()));
+            int ataque = this.meuPokemon.getAtaque();
+            int defesa = this.meuPokemon.getDefesa();
+            int vida = this.meuPokemon.getVida();
+            lblAtaqueMeu.setText("Ataque: " + ataque);
+            lblDefesaMeu.setText("Defesa: " + defesa);
+            lblVidaMeu.setText("Vida: " + vida);
+        }
+    }//GEN-LAST:event_calcularAtributosMeuPoke1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -606,8 +508,12 @@ public class telaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBatalhar;
+    private javax.swing.JButton calcularAtributosMeuPoke1;
+    private javax.swing.JButton calcularAtributosOutroPoke;
     private javax.swing.JComboBox<String> cbxMeuPokemon;
     private javax.swing.JComboBox<String> cbxOutroPokemon;
+    private javax.swing.JTextField inputNivelMeu;
+    private javax.swing.JTextField inputNivelOutro;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbBackg;
     private javax.swing.JLabel lblAtaqueMeu;
@@ -618,7 +524,9 @@ public class telaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblFimGanhador;
     private javax.swing.JLabel lblImgMeu;
     private javax.swing.JLabel lblImgOutro;
-    private javax.swing.JLabel lblMeuPokemon;
+    private javax.swing.JLabel lblMeuPokemon1;
+    private javax.swing.JLabel lblNivel;
+    private javax.swing.JLabel lblNivel1;
     private javax.swing.JLabel lblOutroPokemon;
     private javax.swing.JLabel lblVidaMeu;
     private javax.swing.JLabel lblVidaOutro;

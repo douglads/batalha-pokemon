@@ -1,57 +1,11 @@
-    public class Pokemon {
-    public String listPokemon[] = new String[]{
-        "Cyndaquil", "Charmander", "Growlithe", "Flareon", "Squirtle", "Staryu", "Chikorita", "Turtwig", " Graveler" ,"Sudowoodo"
-    };
-    public String listPokemonTipos[] = new String[]{
-        "fogo", "fogo", "fogo", "fogo", "agua", "agua", "planta", "planta", " pedra" ,"pedra" 
-    };
-    public Pokemon(){
-        
-    }
-    
-    private int idMeuPokemon;
 
-    
-    public void setIdMeuPokemon(int idMeuPokemon){
-        this.idMeuPokemon = idMeuPokemon;
-    }
-    public int getIdMeuPokemon(){
-        return idMeuPokemon;
-    }
-    
-    private int idOutroPokemon;
-    
-    public void setIdOutroPokemon(int idOutroPokemon){
-        this.idOutroPokemon = idOutroPokemon;
-    }
-    public int getIdOutroPokemon(){
-        return idOutroPokemon;
-    }
-    
-    private String Nome;
-    public String getNome(){
-        return Nome;
-    }
+import javax.swing.ImageIcon;
 
-    private String Tipo;
-    private int Level;
-    private int Vida = 200;
-    public int getVida(){
-        return Vida;
-    }
+public class Pokemon {
     
-    private int ataque;
-    public int getAtaque(){
-        return ataque;
-    }
-    private int defesa;
-    public int getDefesa(){
-        return defesa;
-    }
+    public Pokemon(){ }
     
-    public Pokemon(int idMeuPokemon ,int idOutroPokemon ,String nome, String tipo, int level){
-       this.idMeuPokemon = idMeuPokemon;
-       this.idOutroPokemon = idOutroPokemon;
+    public Pokemon(String nome, String tipo, int level){
        this.Nome = nome;
        this.Tipo = tipo.toLowerCase();
        this.Level = level;
@@ -59,39 +13,78 @@
        this.calculaBonus();
     }
     
+    public Pokemon(String nome, String tipo, String caminhoImagem){
+        this.Nome = nome;
+        this.Tipo = tipo;
+        this.imagem = new ImageIcon(getClass().getResource(caminhoImagem));
+        this.calculaAtributos();
+    }
+    
+    private String Nome;
+    public String getNome(){
+        return Nome;
+    }
+    private ImageIcon imagem;
+    public ImageIcon getImagem(){
+        return imagem;
+    }
+    
+    private String Tipo;
+    public String getTipo(){
+        return Tipo;
+    }
+    private int Level;
+    public void setLevel(int level){
+        Level = level;
+    }
+    private int Vida = 200;
+    public int getVida(){
+        return Vida;
+    }
+    
+    private int Ataque;
+    public int getAtaque(){
+        return Ataque;
+    }
+    private int Defesa;
+    public int getDefesa(){
+        return Defesa;
+    }
+    
     public void calculaAtributos(){
         switch (this.Tipo){
             case "fogo":{
                 this.Vida -= 20;
-                this.ataque = 60;
-                this.defesa = 20;
+                this.Ataque = 60;
+                this.Defesa = 20;
                 break;
             }
-            case "água":{
+            case "agua":{
                 this.Vida -= 5;
-                this.ataque = 40;
-                this.defesa = 35;
+                this.Ataque = 40;
+                this.Defesa = 35;
                 break;
             }
             case "planta":{
                 this.Vida += 20;
-                this.ataque = 15;
-                this.defesa = 60;
+                this.Ataque = 15;
+                this.Defesa = 60;
                 break;
             }
             case "pedra":{
                 this.Vida += 25;
-                this.ataque = 30;
-                this.defesa = 60;
+                this.Ataque = 30;
+                this.Defesa = 60;
                 break;
             }
         }
     }
     
     public void calculaBonus(){
-        this.Vida = this.Level / 2;
-        this.ataque = this.Level / 3;
-        this.defesa = this.Level / 4;
+        this.Vida += this.Level / 2;
+        this.Ataque += this.Level / 3;
+        this.Defesa += this.Level / 4;
+        this.imprimePokemon();
     }
     
     public void imprimePokemon(){
@@ -99,7 +92,7 @@
         System.out.println("Tipo: " + this.Tipo);
         System.out.println("Level: " + this.Level);
         System.out.println("Vida: " + this.Vida);
-        System.out.println("Ataque: " + this.ataque);
-        System.out.println("Defesa: " + this.defesa);
+        System.out.println("Ataque: " + this.Ataque);
+        System.out.println("Defesa: " + this.Defesa);
     }
 }

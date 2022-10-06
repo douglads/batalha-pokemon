@@ -1,16 +1,12 @@
 public class Batalha{
 
-    Pokemon MeuPokemon = new Pokemon();
-    Pokemon OutroPokemon = new Pokemon();
+    Pokemon MeuPokemon;
+    Pokemon OutroPokemon;
     private int campeao;
 
-
-    public void setMeuPokemonBatalha(int idMeuPokemon) {
-        MeuPokemon.setIdMeuPokemon(idMeuPokemon);
-    }
-
-    public void setOutroPokemonBatalha(int idOutroPokemon) {
-        OutroPokemon.setIdOutroPokemon(idOutroPokemon);
+    public Batalha(Pokemon meuPokemon, Pokemon outroPokemon){
+        this.MeuPokemon = meuPokemon;
+        this.OutroPokemon = outroPokemon;
     }
 
     public int getCampeao() {
